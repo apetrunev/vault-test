@@ -1,0 +1,6 @@
+services:
+  test:
+    build: .
+    environment:
+      DOMAIN: "vault1"
+    command: "vault1"
