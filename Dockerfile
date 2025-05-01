@@ -24,7 +24,9 @@ RUN make -C /tmp/vault bootstrap && make -C /tmp/vault static-dist dev-ui \
 FROM ubuntu:24.04
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get update -y \
-    && apt-get install --no-install-recommends -y vim make gawk wget curl ca-certificates git man sudo
+    && apt-get install --no-install-recommends -y vim make gawk wget curl ca-certificates git man sudo \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 COPY --from=build /usr/local/bin/vault /usr/local/bin/vault
 RUN useradd -M -r -d /opt/vault --uid 999 vault \
     && mkdir -vp /etc/vault/tls \
