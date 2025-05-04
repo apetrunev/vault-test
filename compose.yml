@@ -44,6 +44,18 @@ services:
     volumes:
       - ./config3.hcl:/etc/vault/config.hcl
 
+  unseal:
+    hostname: unseal.example.com
+    build: 
+      context: .
+      dockerfile: Dockerfile.unseal
+    command: /bin/sh -c "while true; do sleep 10; done"
+    volumes:
+      - ./keys:/keys
+      - ./unseal.sh:/unseal.sh
+    networks:
+      vault:
+        
 networks:
   vault:
     ipam:
